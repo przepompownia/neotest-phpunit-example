@@ -76,6 +76,9 @@ local function init()
       },
     }
   }
+  vim.keymap.set({'n'}, ',dr', dap.continue, {})
+  vim.keymap.set({'n'}, ',dc', dap.close, {})
+
   require('nvim-treesitter.configs').setup {
     ensure_installed = {'php'},
     highlight = {
@@ -92,6 +95,8 @@ local function init()
       },
     }
   })
+  vim.keymap.set({'n'}, ',nr', require('neotest').run.run, {})
+  vim.keymap.set({'n'}, ',nd', function () require('neotest').run.run({strategy = 'dap'}) end, {})
 
   vim.schedule(function ()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
