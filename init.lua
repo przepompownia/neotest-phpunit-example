@@ -42,6 +42,7 @@ for name, repo in pairs {
 end
 
 local function init()
+  vim.keymap.set('n', '<Esc>', vim.cmd.fclose)
   vim.cmd.colorscheme 'habamax'
   vim.go.termguicolors = true
   local dap = require 'dap'
