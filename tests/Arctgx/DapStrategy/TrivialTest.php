@@ -8,6 +8,7 @@ class TrivialTest extends TestCase
 {
     public function testBrk(): void
     {
+        print(microtime(true));
         self::assertTrue(true); 
     }
 }
