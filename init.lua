@@ -42,6 +42,8 @@ for name, repo in pairs {
 end
 
 local function init()
+  vim.cmd.colorscheme 'habamax'
+  vim.go.termguicolors = true
   local dap = require 'dap'
   dap.set_log_level('TRACE')
   dap.adapters.php = {
