@@ -11,7 +11,7 @@ vim.opt.runtimepath:prepend(stdPathConfig)
 vim.opt.packpath:prepend(stdPathConfig)
 local pluginsPath = vim.uv.fs_realpath('plugins') .. '/'
 
-local onExit = vim.schedule_wrap(function(obj)
+local onExit = vim.schedule_wrap(function (obj)
   vim.notify(obj.stdout)
   vim.notify(obj.stderr, vim.log.levels.WARN)
 end)
@@ -43,7 +43,7 @@ end
 
 local function init()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'php' },
+    ensure_installed = {'php'},
     highlight = {
       enable = true,
     },
