@@ -95,6 +95,8 @@ local function init()
 
   vim.schedule(function ()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
+    vim.api.nvim_win_set_cursor(0, {11, 9})
+    dap.set_breakpoint()
   end)
 end
 
