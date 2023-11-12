@@ -1,0 +1,11 @@
+{
+    "name": "arctgx/dap-strategy",
+    "require": {
+        "phpunit/phpunit": "^10.4"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arctgx\\DapStrategy\\": "tests/Arctgx/DapStrategy/"
+        }
+    }
+}
