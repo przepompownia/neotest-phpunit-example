@@ -14,4 +14,4 @@ composer:
 	composer install
 
 start: install-vscode-php-debug composer
-	/usr/bin/nvim --clean -u init.lua
+	/usr/bin/nvim -u init.lua
