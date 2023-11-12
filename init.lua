@@ -97,6 +97,7 @@ local function init()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
     vim.api.nvim_win_set_cursor(0, {11, 9})
     dap.set_breakpoint()
+    require('neotest').output_panel.open()
   end)
 end
 
