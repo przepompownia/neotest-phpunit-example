@@ -48,6 +48,10 @@ local function init()
       enable = true,
     },
   }
+
+  vim.schedule(function ()
+    vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
+  end)
 end
 
 vim.api.nvim_create_autocmd('UIEnter', {
