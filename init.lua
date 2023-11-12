@@ -84,6 +84,7 @@ local function init()
     },
   }
   local phpXdebugCmd = {'php', '-dzend_extension=xdebug.so', 'vendor/bin/phpunit'}
+  local phpXdebugEnv = {XDEBUG_CONFIG = 'idekey=neotest'}
   require('neotest').setup({
     adapters = {
       require('neotest-phpunit') {
@@ -97,7 +98,7 @@ local function init()
   vim.api.nvim_create_user_command('PhpUnitWithXdebug', function (opts)
     local phpunit = vim.tbl_values(phpXdebugCmd)
     table.insert(phpunit, opts.fargs[1] or vim.api.nvim_buf_get_name(0))
-    vim.system(phpunit, {env = {XDEBUG_CONFIG = 'idekey=neotest'}}, onExit)
+    vim.system(phpunit, {env = phpXdebugEnv}, onExit)
   end, {nargs = '?', complete = 'file'})
 
   vim.keymap.set('n', '<Esc>', vim.cmd.fclose)
