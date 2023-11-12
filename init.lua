@@ -42,7 +42,6 @@ for name, repo in pairs {
 end
 
 local function init()
-  vim.keymap.set('n', '<Esc>', vim.cmd.fclose)
   vim.cmd.colorscheme 'habamax'
   vim.go.termguicolors = true
   local dap = require 'dap'
@@ -77,8 +76,6 @@ local function init()
       },
     }
   }
-  vim.keymap.set({'n'}, ',dr', dap.continue, {})
-  vim.keymap.set({'n'}, ',dc', dap.close, {})
 
   require('nvim-treesitter.configs').setup {
     ensure_installed = {'php'},
@@ -97,13 +94,17 @@ local function init()
       },
     }
   })
-  vim.keymap.set({'n'}, ',nr', require('neotest').run.run, {})
-  vim.keymap.set({'n'}, ',nd', function () require('neotest').run.run({strategy = 'dap'}) end, {})
   vim.api.nvim_create_user_command('PhpUnitWithXdebug', function (opts)
     local phpunit = vim.tbl_values(phpXdebugCmd)
     table.insert(phpunit, opts.fargs[1] or vim.api.nvim_buf_get_name(0))
     vim.system(phpunit, {env = {XDEBUG_CONFIG = 'idekey=neotest'}}, onExit)
   end, {nargs = '?', complete = 'file'})
+
+  vim.keymap.set('n', '<Esc>', vim.cmd.fclose)
+  vim.keymap.set({'n'}, ',dr', dap.continue, {})
+  vim.keymap.set({'n'}, ',dc', dap.close, {})
+  vim.keymap.set({'n'}, ',nr', require('neotest').run.run, {})
+  vim.keymap.set({'n'}, ',nd', function () require('neotest').run.run({strategy = 'dap'}) end, {})
 
   vim.schedule(function ()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
