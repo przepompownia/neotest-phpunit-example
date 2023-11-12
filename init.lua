@@ -106,6 +106,17 @@ local function init()
   vim.keymap.set({'n'}, ',nr', require('neotest').run.run, {})
   vim.keymap.set({'n'}, ',nd', function () require('neotest').run.run({strategy = 'dap'}) end, {})
 
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'php',
+    callback = function ()
+      function ShowListeningIndicator()
+        local indicator = '%#DiagnosticOk#⛧ %#StatusLine# [Listening...]'
+        return dap.session() and indicator or '☠ [No debug session]'
+      end
+      vim.opt_local.statusline = '%{%v:lua.ShowListeningIndicator()%} %f'
+    end
+  })
+
   vim.schedule(function ()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
     vim.api.nvim_win_set_cursor(0, {11, 9})
