@@ -42,12 +42,54 @@ for name, repo in pairs {
 end
 
 local function init()
+  local dap = require 'dap'
+  dap.set_log_level('TRACE')
+  dap.adapters.php = {
+    type = 'executable',
+    command = vim.uv.cwd() .. '/bin/dap-adapter-utils',
+    args = {'run', 'vscode-php-debug', 'phpDebug'}
+  }
+
+  dap.configurations.php = {
+    {
+      log = true,
+      type = 'php',
+      request = 'launch',
+      name = 'Listen for XDebug',
+      port = 9003,
+      stopOnEntry = false,
+      xdebugSettings = {
+        max_children = 512,
+        max_data = 1024,
+        max_depth = 4,
+      },
+      breakpoints = {
+        exception = {
+          Notice = false,
+          Warning = false,
+          Error = false,
+          Exception = false,
+          ['*'] = false,
+        },
+      },
+    }
+  }
   require('nvim-treesitter.configs').setup {
     ensure_installed = {'php'},
     highlight = {
       enable = true,
     },
   }
+  require('neotest').setup({
+    adapters = {
+      require('neotest-phpunit') {
+        phpunit_cmd = function ()
+          return {'php', '-dzend_extension=xdebug.so', 'vendor/bin/phpunit'}
+        end,
+        dap = dap.configurations.php[1],
+      },
+    }
+  })
 
   vim.schedule(function ()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
