@@ -45,6 +45,7 @@ local function init()
   vim.cmd.colorscheme 'habamax'
   vim.go.termguicolors = true
   local dap = require 'dap'
+  dap.defaults.fallback.switchbuf = 'useopen'
   dap.set_log_level('TRACE')
   dap.adapters.php = {
     type = 'executable',
@@ -95,6 +96,9 @@ local function init()
       require('neotest-phpunit') {
         env = phpXdebugEnv,
         dap = dap.configurations.php[1],
+        phpunit_cmd = function ()
+          return 'vendor/bin/phpunit'
+        end,
       },
     }
   })
@@ -119,8 +123,8 @@ local function init()
     pattern = 'php',
     callback = function ()
       function ShowListeningIndicator()
-        local indicator = '%#DiagnosticOk#⛧ %#StatusLine# [Listening...]'
-        return dap.session() and indicator or '☠ [No debug session]'
+        local indicator = '%#DiagnosticError#⛧ %#StatusLine# [Listening...]'
+        return dap.session() and indicator or '%#DiagnosticInfo#☠%#StatusLine# [No debug session]'
       end
       vim.opt_local.statusline = '%{%v:lua.ShowListeningIndicator()%} %f'
     end
