@@ -83,14 +83,17 @@ local function init()
       enable = true,
     },
   }
-  local phpXdebugCmd = {'php', '-dzend_extension=xdebug.so', 'vendor/bin/phpunit'}
+  local phpXdebugCmd = {
+    'php',
+    '-dzend_extension=xdebug.so',
+    'vendor/bin/phpunit',
+  }
   local phpXdebugEnv = {XDEBUG_CONFIG = 'idekey=neotest'}
-  require('neotest').setup({
+  local neotest = require('neotest')
+  neotest.setup({
     adapters = {
       require('neotest-phpunit') {
-        phpunit_cmd = function ()
-          return phpXdebugCmd
-        end,
+        env = phpXdebugEnv,
         dap = dap.configurations.php[1],
       },
     }
@@ -103,9 +106,14 @@ local function init()
 
   vim.keymap.set('n', '<Esc>', vim.cmd.fclose)
   vim.keymap.set({'n'}, ',dr', dap.continue, {})
+  vim.keymap.set({'n'}, ',ds', dap.step_over, {})
   vim.keymap.set({'n'}, ',dc', dap.close, {})
-  vim.keymap.set({'n'}, ',nr', require('neotest').run.run, {})
-  vim.keymap.set({'n'}, ',nd', function () require('neotest').run.run({strategy = 'dap'}) end, {})
+  vim.keymap.set({'n'}, ',no', neotest.summary.toggle, {})
+  vim.keymap.set({'n'}, ',nr', neotest.run.run, {})
+  vim.keymap.set({'n'}, ',nd', function () neotest.run.run({
+    strategy = 'dap',
+    -- env = phpXdebugEnv,
+  }) end, {})
 
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'php',
@@ -122,7 +130,8 @@ local function init()
     vim.cmd.edit 'tests/Arctgx/DapStrategy/TrivialTest.php'
     vim.api.nvim_win_set_cursor(0, {11, 9})
     dap.set_breakpoint()
-    require('neotest').output_panel.open()
+    neotest.output_panel.open()
+    neotest.summary.open()
   end)
 end
 
