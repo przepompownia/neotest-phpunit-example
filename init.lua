@@ -108,6 +108,11 @@ local function init()
     }
   })
   vim.api.nvim_create_user_command('PhpUnitWithXdebug', function (opts)
+    local onExit = vim.schedule_wrap(function (obj)
+      vim.notify(obj.stdout)
+      vim.notify(obj.stderr, vim.log.levels.WARN)
+    end)
+
     local phpunit = vim.tbl_values(phpXdebugCmd)
     table.insert(phpunit, opts.fargs[1] or vim.api.nvim_buf_get_name(0))
     vim.system(phpunit, {env = phpXdebugEnv}, onExit)
