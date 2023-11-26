@@ -19,7 +19,7 @@ local function gitClone(url, installPath, branch)
     return
   end
 
-  local command = {'git', 'clone', '--depth=1', '--', url, installPath}
+  local command = {'git', 'clone', '--', url, installPath}
   if branch then
     table.insert(command, 3, '--branch')
     table.insert(command, 4, branch)
