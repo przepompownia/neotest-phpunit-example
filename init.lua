@@ -2,9 +2,9 @@ local thisInitFile = debug.getinfo(1).source:match('@?(.*)')
 local configDir = vim.fs.dirname(thisInitFile)
 
 vim.env['XDG_CONFIG_HOME'] = configDir
-vim.env['XDG_DATA_HOME'] = configDir .. '/.xdg/data'
-vim.env['XDG_STATE_HOME'] = configDir .. '/.xdg/state'
-vim.env['XDG_CACHE_HOME'] = configDir .. '/.xdg/cache'
+vim.env['XDG_DATA_HOME'] = vim.fs.joinpath(configDir, '.xdg', 'data')
+vim.env['XDG_STATE_HOME'] = vim.fs.joinpath(configDir, '.xdg', 'state')
+vim.env['XDG_CACHE_HOME'] = vim.fs.joinpath(configDir, '.xdg', 'cache')
 local stdPathConfig = vim.fn.stdpath('config')
 
 vim.opt.runtimepath:prepend(stdPathConfig)
