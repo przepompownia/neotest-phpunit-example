@@ -9,35 +9,40 @@ local stdPathConfig = vim.fn.stdpath('config')
 
 vim.opt.runtimepath:prepend(stdPathConfig)
 vim.opt.packpath:prepend(stdPathConfig)
-local pluginsPath = vim.uv.fs_realpath('plugins') .. '/'
 
-local onExit = vim.schedule_wrap(function (obj)
-  vim.notify(obj.stdout)
-  vim.notify(obj.stderr, vim.log.levels.WARN)
-end)
+local pluginsPath = 'plugins'
+vim.fn.mkdir(pluginsPath, 'p')
+pluginsPath = vim.uv.fs_realpath(pluginsPath)
 
-for name, repo in pairs {
+local function gitClone(url, installPath, branch)
+  if vim.fn.isdirectory(installPath) ~= 0 then
+    return
+  end
+
+  local command = {'git', 'clone', '--depth=1', '--', url, installPath}
+  if branch then
+    table.insert(command, 3, '--branch')
+    table.insert(command, 4, branch)
+  end
+  local sysObj = vim.system(command, {}):wait()
+  if sysObj.code ~= 0 then
+    error(sysObj.stderr)
+  end
+  vim.notify(sysObj.stdout)
+  vim.notify(sysObj.stderr, vim.log.levels.WARN)
+end
+
+local plugins = {
   ['plenary.nvim'] = {url = 'https://github.com/nvim-lua/plenary.nvim'},
   ['neotest'] = {url = 'https://github.com/nvim-neotest/neotest'},
   ['nvim-dap'] = {url = 'https://github.com/mfussenegger/nvim-dap'},
   ['nvim-treesitter'] = {url = 'https://github.com/nvim-treesitter/nvim-treesitter'},
   ['neotest-phpunit'] = {url = 'https://github.com/przepompownia/neotest-phpunit', branch = 'dap-strategy'},
-} do
-  local installPath = pluginsPath .. name
-  if vim.fn.isdirectory(installPath) == 0 then
-    local command = {
-      'git',
-      'clone',
-      '--',
-      repo.url,
-      installPath,
-    }
-    if repo.branch then
-      table.insert(command, 3, '--branch')
-      table.insert(command, 4, repo.branch)
-    end
-    vim.system(command, {}, onExit)
-  end
+}
+
+for name, repo in pairs(plugins) do
+  local installPath = vim.fs.joinpath(pluginsPath, name)
+  gitClone(repo.url, installPath, repo.branch)
   vim.opt.runtimepath:append(installPath)
 end
 
