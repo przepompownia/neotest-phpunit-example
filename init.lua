@@ -37,7 +37,7 @@ local plugins = {
   ['neotest'] = {url = 'https://github.com/nvim-neotest/neotest'},
   ['nvim-dap'] = {url = 'https://github.com/mfussenegger/nvim-dap'},
   ['nvim-treesitter'] = {url = 'https://github.com/nvim-treesitter/nvim-treesitter'},
-  ['neotest-phpunit'] = {url = 'https://github.com/przepompownia/neotest-phpunit', branch = 'dap-strategy'},
+  ['neotest-phpunit'] = {url = 'https://github.com/przepompownia/neotest-phpunit'},
 }
 
 for name, repo in pairs(plugins) do
