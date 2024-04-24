@@ -24,6 +24,8 @@ local function gitClone(url, installPath, branch)
     table.insert(command, 3, '--branch')
     table.insert(command, 4, branch)
   end
+
+  vim.notify(('Cloning %s dependency into %s...'):format(url, installPath), vim.log.levels.INFO, {})
   local sysObj = vim.system(command, {}):wait()
   if sysObj.code ~= 0 then
     error(sysObj.stderr)
