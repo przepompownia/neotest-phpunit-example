@@ -34,6 +34,7 @@ end
 
 local plugins = {
   ['plenary.nvim'] = {url = 'https://github.com/nvim-lua/plenary.nvim'},
+  ['nvim-nio'] = {url = 'https://github.com/nvim-neotest/nvim-nio'},
   ['neotest'] = {url = 'https://github.com/nvim-neotest/neotest'},
   ['nvim-dap'] = {url = 'https://github.com/mfussenegger/nvim-dap'},
   ['nvim-treesitter'] = {url = 'https://github.com/nvim-treesitter/nvim-treesitter'},
