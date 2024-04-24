@@ -135,7 +135,7 @@ local function init()
     callback = function ()
       function ShowListeningIndicator()
         local indicator = '%#DiagnosticError#⛧ %#StatusLine# [Listening...]'
-        return dap.session() and indicator or '%#DiagnosticInfo#☠%#StatusLine# [No debug session]'
+        return dap.session() and indicator or '%#DiagnosticInfo#☠ %#StatusLine# [No debug session]'
       end
       vim.opt_local.statusline = '%{%v:lua.ShowListeningIndicator()%} %f'
     end
