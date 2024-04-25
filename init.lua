@@ -52,6 +52,7 @@ end
 local function init()
   vim.cmd.colorscheme 'habamax'
   vim.go.termguicolors = true
+  vim.wo.number = true
   local dap = require 'dap'
   dap.defaults.fallback.switchbuf = 'useopen'
   dap.set_log_level('TRACE')
