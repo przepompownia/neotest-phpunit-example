@@ -10,7 +10,7 @@ local stdPathConfig = vim.fn.stdpath('config')
 vim.opt.runtimepath:prepend(stdPathConfig)
 vim.opt.packpath:prepend(stdPathConfig)
 
-local pluginsPath = 'plugins'
+local pluginsPath = vim.fs.joinpath(configDir, 'plugins')
 vim.fn.mkdir(pluginsPath, 'p')
 pluginsPath = vim.uv.fs_realpath(pluginsPath)
 
