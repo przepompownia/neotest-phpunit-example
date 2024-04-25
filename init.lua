@@ -52,7 +52,13 @@ end
 local function init()
   vim.cmd.colorscheme 'habamax'
   vim.go.termguicolors = true
+  vim.treesitter.language.register('php_only', {'php'})
+  vim.wo.foldmethod = 'expr'
+  vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  vim.wo.foldtext = ''
   vim.wo.number = true
+  vim.wo.numberwidth = 1
+  vim.opt.signcolumn = 'auto:1-9'
   local dap = require 'dap'
   dap.defaults.fallback.switchbuf = 'useopen'
   dap.set_log_level('TRACE')
@@ -88,7 +94,7 @@ local function init()
   }
 
   require('nvim-treesitter.configs').setup {
-    ensure_installed = {'php'},
+    ensure_installed = {'php_only'},
     highlight = {
       enable = true,
     },
