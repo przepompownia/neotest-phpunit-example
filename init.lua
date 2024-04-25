@@ -58,7 +58,7 @@ local function init()
   dap.set_log_level('TRACE')
   dap.adapters.php = {
     type = 'executable',
-    command = vim.uv.cwd() .. '/bin/dap-adapter-utils',
+    command = vim.fs.joinpath(configDir, 'bin/dap-adapter-utils'),
     args = {'run', 'vscode-php-debug', 'phpDebug'}
   }
 
