@@ -56,6 +56,7 @@ local function init()
   vim.wo.foldmethod = 'expr'
   vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   vim.wo.foldtext = ''
+  vim.wo.foldlevel = 99
   vim.wo.number = true
   vim.wo.numberwidth = 1
   vim.opt.signcolumn = 'auto:1-9'
