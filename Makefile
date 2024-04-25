@@ -15,3 +15,6 @@ composer:
 
 start: install-vscode-php-debug composer
 	/usr/bin/nvim -u init.lua -c 'source test.lua'
+
+run: install-vscode-php-debug composer
+	/usr/bin/nvim -u init.lua

@@ -126,7 +126,9 @@ local function init()
   vim.keymap.set({'n'}, ',dr', dap.continue)
   vim.keymap.set({'n'}, ',ds', dap.step_over)
   vim.keymap.set({'n'}, ',dc', dap.close)
-  vim.keymap.set({'n'}, ',no', neotest.summary.toggle)
+  vim.keymap.set({'n'}, ',dt', dap.toggle_breakpoint)
+  vim.keymap.set({'n'}, ',ns', neotest.summary.toggle)
+  vim.keymap.set({'n'}, ',no', neotest.output_panel.toggle)
   vim.keymap.set({'n'}, ',nr', neotest.run.run)
   vim.keymap.set({'n'}, ',nd', function () neotest.run.run({
     strategy = 'dap',
