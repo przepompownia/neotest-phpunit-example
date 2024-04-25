@@ -144,13 +144,6 @@ local function init()
     end
   })
 
-  vim.schedule(function ()
-    vim.cmd.edit(vim.fs.joinpath(configDir, 'tests/Arctgx/DapStrategy/TrivialTest.php'))
-    vim.api.nvim_win_set_cursor(0, {11, 9})
-    dap.set_breakpoint()
-    neotest.output_panel.open()
-    neotest.summary.open()
-  end)
 end
 
 vim.api.nvim_create_autocmd('UIEnter', {
