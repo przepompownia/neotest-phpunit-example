@@ -131,6 +131,14 @@ local function init()
   end, {nargs = '?', complete = 'file'})
 
   vim.keymap.set('n', '<Esc>', vim.cmd.fclose)
+  vim.keymap.set(
+    {'n'},
+    'dQ',
+    function ()
+      dap.close()
+      dap.clear_breakpoints()
+    end
+  )
   vim.keymap.set({'n'}, ',dr', dap.continue)
   vim.keymap.set({'n'}, ',ds', dap.step_over)
   vim.keymap.set({'n'}, ',dc', dap.close)
