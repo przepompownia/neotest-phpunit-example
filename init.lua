@@ -100,6 +100,7 @@ local function init()
   local phpXdebugEnv = {XDEBUG_CONFIG = 'idekey=neotest'}
   local neotest = require('neotest')
   neotest.setup({
+    -- log_level = vim.log.levels.DEBUG,
     adapters = {
       require('neotest-phpunit') {
         env = phpXdebugEnv,
