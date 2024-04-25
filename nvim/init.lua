@@ -1,5 +1,5 @@
 local thisInitFile = debug.getinfo(1).source:match('@?(.*)')
-local configDir = vim.fs.dirname(thisInitFile)
+local configDir = vim.fs.dirname(vim.fs.dirname(thisInitFile))
 
 vim.env['XDG_CONFIG_HOME'] = configDir
 vim.env['XDG_DATA_HOME'] = vim.fs.joinpath(configDir, '.xdg', 'data')
@@ -10,7 +10,7 @@ local stdPathConfig = vim.fn.stdpath('config')
 vim.opt.runtimepath:prepend(stdPathConfig)
 vim.opt.packpath:prepend(stdPathConfig)
 
-local pluginsPath = vim.fs.joinpath(configDir, 'plugins')
+local pluginsPath = vim.fs.joinpath(configDir, 'nvim/pack/plugins/opt')
 vim.fn.mkdir(pluginsPath, 'p')
 pluginsPath = vim.uv.fs_realpath(pluginsPath)
 
@@ -46,7 +46,8 @@ local plugins = {
 for name, repo in pairs(plugins) do
   local installPath = vim.fs.joinpath(pluginsPath, name)
   gitClone(repo.url, installPath, repo.branch)
-  vim.opt.runtimepath:append(installPath)
+  -- vim.opt.runtimepath:append(installPath)
+  vim.cmd.packadd({args = {name}, bang = true})
 end
 
 local function init()
