@@ -137,10 +137,12 @@ local function init()
   vim.keymap.set({'n'}, ',ns', neotest.summary.toggle)
   vim.keymap.set({'n'}, ',no', neotest.output_panel.toggle)
   vim.keymap.set({'n'}, ',nr', neotest.run.run)
-  vim.keymap.set({'n'}, ',nd', function () neotest.run.run({
-    strategy = 'dap',
-    -- env = phpXdebugEnv,
-  }) end)
+  vim.keymap.set({'n'}, ',nd', function ()
+    neotest.run.run({
+      strategy = 'dap',
+      -- env = phpXdebugEnv,
+    })
+  end)
 
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'php',
@@ -152,7 +154,6 @@ local function init()
       vim.opt_local.statusline = '%{%v:lua.ShowListeningIndicator()%} %f'
     end
   })
-
 end
 
 vim.api.nvim_create_autocmd('UIEnter', {
