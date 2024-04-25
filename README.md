@@ -7,7 +7,7 @@ In this directory run
 ```
 then press `,nd` to run test with `dap` strategy on provided PHPUnit test.
 
-If it works, try another project
+If it works, from some PHP project directory try
 ```sh
     make -C /path/to/this/directory run
 ```
