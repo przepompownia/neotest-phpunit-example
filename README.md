@@ -13,7 +13,7 @@ If it works, from some PHP project directory try
 ```
 or directly
 ```sh
-    nvim -C /path/to/this/directory/init.lua ./path/to/your/UnitTest.php
+    nvim -u /path/to/this/directory/init.lua ./path/to/your/UnitTest.php
 ```
 
 ### Keymaps
